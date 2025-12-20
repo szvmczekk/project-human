@@ -18,6 +18,13 @@
     </nav>
 
     <main class="main-content">
+
+        <section class="cards-action">
+            <div class="action-add">
+                <a href="#" th:href="@{/add}">+ New Task</a>
+            </div>
+        </section>
+
         <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
             <div class="task-card" th:each="task : ${tasks}">
                 <form class="task-form" action="#" method="post">
@@ -41,6 +48,10 @@
             </div>
         </div>
     </main>
+
+    <footer>
+        Github: szvmczekk
+    </footer>
 </div>
 </body>
 </html>
