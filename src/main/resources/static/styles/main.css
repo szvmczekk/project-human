@@ -14,6 +14,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .container {
@@ -54,12 +55,18 @@ body {
     font-weight: bold;
 }
 
-.nav-title {
+.navbar > a {
+    display: block;
+    text-decoration: none;
     margin-left: 15%;
-    padding: 0;
+    align-self: center;
+}
+
+a > .nav-title {
     align-self: center;
     color: var(--grey);
     text-shadow: 0 0 10px rgba(0,0,0, 0.5);
+    text-decoration: none;
 }
 
 .main-content {
@@ -77,7 +84,7 @@ body {
     padding: 20px;
     border: 2px solid var(--dblue);
     border-radius: 7px;
-    column-gap: 20px;
+    gap: 20px;
     align-items: center;
     display: flex;
 }
@@ -126,6 +133,52 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.form-add > h2 {
+    border-radius: 7px 7px 0 0;
+    justify-self: center;
+    background-color: var(--lblue);
+    padding-top: 20px;
+    color: var(--grey);
+}
+
+.form-add {
+    margin: 100px 34%;
+    padding: 0 1%;
+    font-size: 1.6rem;
+    border: 2px solid var(--grey);
+    background-color: var(--lblue);
+    border-radius: 10px;
+}
+
+.form-inside {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.form-inside > input {
+    padding: 10px;
+    border: none;
+    box-shadow: 0 0 8px 2px rgba(var(--grey-rgb), 1);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.form-inside > button {
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-inside > button:hover {
+    color: var(--lblue);
+}
+
 
 footer {
     margin-top: 50px;
