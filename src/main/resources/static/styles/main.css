@@ -98,8 +98,25 @@ a > .nav-title {
     height: 44px;
 }
 
+.task-button-delete {
+    border-radius: 5px;
+    background-color: lightcoral;
+    color: var(--white);
+    border: none;
+    width: 40px;
+    height: 40px;
+}
+
+.task-card .task-delete-form {
+    margin-left: auto;
+}
+
 .task-button:hover {
     background-color: var(--dblue);
+}
+
+.task-button-delete:hover {
+    background-color: red;
 }
 
 .done {

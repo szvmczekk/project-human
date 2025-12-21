@@ -21,10 +21,13 @@
         <h2>Add a task</h2>
         <div class="form-inside" th:object="${task}">
             <input type="text" th:field="*{title}" name="title" placeholder="title. Do a workout" required>
-            <input type="text" th:field="*{description}" name="description" placeholder="description. 30 minutes of running outside the city">
+            <input type="text" maxlength="70" th:field="*{description}" name="description" placeholder="description. 30 minutes of running outside the city">
             <button type="submit">Save</button>
         </div>
     </form>
+    <footer>
+        Github: szvmczekk
+    </footer>
 </div>
 </body>
 </html>

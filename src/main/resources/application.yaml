@@ -1,6 +1,8 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:test
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  profiles:
+    active: dev
   liquibase:
     change-log: classpath:db/changelog/master.xml
-    contexts: dev
