@@ -7,5 +7,8 @@
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
     <include file="0001_create_table_task.xml" relativeToChangelogFile="true"/>
+    <include file="0002_create_tables_users_and_role.xml" relativeToChangelogFile="true"/>
+
     <include file="../testdata/0001_task.sql" relativeToChangelogFile="true" context="dev"/>
+    <include file="../testdata/0002_users_and_roles.sql" relativeToChangelogFile="true" context="dev"/>
 </databaseChangeLog>

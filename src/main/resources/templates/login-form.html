@@ -17,12 +17,18 @@
         </ul>
     </nav>
 
-    <form action="#" class="form-add" method="post" th:action="@{/add}">
-        <h2>Add a task</h2>
-        <div class="form-inside" th:object="${task}">
-            <input type="text" th:field="*{title}" name="title" placeholder="title. Do a workout" required>
-            <input type="text" maxlength="70" th:field="*{description}" name="description" placeholder="description. 30 minutes of running outside the city">
-            <button type="submit">Save</button>
+    <p th:if="${param.error}"
+       th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+       class="mc-form-message">
+        Blad logowania.
+    </p>
+
+    <form action="#" class="form-add" method="post" th:action="@{/login}">
+        <h2>Log into your account</h2>
+        <div class="form-inside">
+            <input type="text"name="username" placeholder="email" required>
+            <input type="text" maxlength="200" name="password" placeholder="password">
+            <button type="submit">Login</button>
         </div>
     </form>
     <footer>

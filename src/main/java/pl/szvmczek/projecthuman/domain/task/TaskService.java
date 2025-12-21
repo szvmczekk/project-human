@@ -30,6 +30,10 @@ public class TaskService {
         taskRepository.save(task);
     }
 
+    public void deleteTask(Long id){
+        taskRepository.deleteById(id);
+    }
+
     public Optional<Task> findTaskById(Long id){
         return taskRepository.findById(id);
     }

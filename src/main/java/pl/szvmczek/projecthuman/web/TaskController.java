@@ -45,4 +45,10 @@ public class TaskController {
         task.ifPresent(t -> taskService.changeStatus(id));
         return "redirect:/";
     }
+
+    @PostMapping("/delete")
+    public String deleteTask(@RequestParam Long id){
+        taskService.deleteTask(id);
+        return "redirect:/";
+    }
 }
