@@ -26,9 +26,9 @@
         </section>
 
         <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
-            <div class="task-card" th:each="task : ${tasks}">
-                <form class="task-form" action="#" method="post">
-                    <input hidden value="?" name="taskId">
+            <div class="task-card" th:each="task : ${tasks}" th:classappend="${task.done ? 'done' : ''}">
+                <form class="task-form" action="#" method="post" th:action="@{/complete}">
+                    <input hidden value="#" th:value="${task.id}" name="id">
                     <button class="task-button" type="submit">+</button>
                 </form>
                 <div class="task-content">

@@ -102,6 +102,10 @@ a > .nav-title {
     background-color: var(--dblue);
 }
 
+.done {
+    border: 2px solid green;
+}
+
 .task-title {
     font-weight: 700;
 }

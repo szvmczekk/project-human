@@ -1,8 +1,10 @@
 package pl.szvmczek.projecthuman.domain.task;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -14,10 +16,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    void changeStatus(Long id){
+    @Transactional
+    public void changeStatus(Long id){
         Task task = taskRepository.findById(id).get();
         task.setDone(!task.isDone());
-        taskRepository.save(task);
     }
 
     public List<Task> getAllTasks(){
@@ -26,5 +28,9 @@ public class TaskService {
 
     public void saveTask(Task task){
         taskRepository.save(task);
+    }
+
+    public Optional<Task> findTaskById(Long id){
+        return taskRepository.findById(id);
     }
 }
