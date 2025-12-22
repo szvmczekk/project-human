@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Project Human</title>
@@ -12,8 +12,8 @@
     <nav class="navbar">
         <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
         <ul class="nav-links">
-            <li class="nav-item"><a href="#">Help</a></li>
-            <li class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
+            <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
         </ul>
     </nav>
 
