@@ -214,6 +214,22 @@ a > .nav-title {
     color: var(--grey);
 }
 
+.not-found {
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.not-found a {
+    text-decoration: none;
+    color: var(--lblue);
+}
+
+.not-found a:hover {
+    color: var(--dblue);
+}
 
 footer {
     margin-top: 50px;

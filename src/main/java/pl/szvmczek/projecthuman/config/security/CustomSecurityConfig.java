@@ -19,6 +19,7 @@ public class CustomSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/styles/**","/img/**").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/**").authenticated()
                         .anyRequest().permitAll()
@@ -36,11 +37,6 @@ public class CustomSecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
         http.headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
-        return web -> web.ignoring().requestMatchers("/styles/**", "/img/**");
     }
 
     @Bean
