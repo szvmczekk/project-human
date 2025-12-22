@@ -222,13 +222,9 @@ a > .nav-title {
     gap: 20px;
 }
 
-.not-found a {
-    text-decoration: none;
-    color: var(--lblue);
-}
-
-.not-found a:hover {
-    color: var(--dblue);
+.form-error {
+    font-size: 0.9rem;
+    color: red;
 }
 
 footer {

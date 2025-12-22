@@ -17,11 +17,13 @@
         </ul>
     </nav>
 
-    <form action="#" class="form-add" method="post" th:action="@{/register}">
+    <form action="#" class="form-add" method="post" th:action="@{/register}" th:object="${user}">
         <h2>Create new account</h2>
-        <div class="form-inside" th:object="${user}">
-            <input type="text" name="username" th:field="*{email}" placeholder="email" required>
-            <input type="password" maxlength="200" name="password" th:field="*{password}" placeholder="password">
+        <div class="form-inside">
+            <p class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errors of email</p>
+            <input type="text" th:field="*{email}" placeholder="email" required>
+            <p class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Errors of password</p>
+            <input type="password" maxlength="200" th:field="*{password}" placeholder="password (min 6 characters)">
             <button type="submit">Register</button>
         </div>
         <a href="#" th:href="@{/login}">Already have an account? <p>Log in</p></a>
