@@ -1,31 +1,24 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Project Human</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../static/styles/main.css" th:href="@{/styles/main.css}">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="../../static/styles/main.css" rel="stylesheet" th:href="@{/styles/main.css}">
 </head>
 <body>
 <div class="container">
+    <main class="main-content" th:fragment="content">
 
-    <nav class="navbar">
-        <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
-        <ul class="nav-links">
-            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
-        </ul>
-    </nav>
+        <main class="main-content">
+            <h1 class="not-found">Error 404 :/
+                <a href="#" th:href="@{/}">Home</a>
+                <a href="#" th:href="@{/login}">Log in</a>
+            </h1>
+        </main>
 
-    <main class="main-content">
-        <h1 class="not-found">Error 404 :/
-            <a href="#" th:href="@{/}">Home</a>
-            <a href="#" th:href="@{/login}">Log in</a>
-        </h1>
     </main>
-    <footer>
-        Github: szvmczekk
-    </footer>
 </div>
 </body>
 </html>

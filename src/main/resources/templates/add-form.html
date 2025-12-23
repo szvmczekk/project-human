@@ -1,34 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <title>Project Human</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
-</head>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
 
-    <nav class="navbar">
-        <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
-        <ul class="nav-links">
-            <li class="nav-item"><a href="#">Help</a></li>
-            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
-        </ul>
-    </nav>
+    <main class="main-content" layout:fragment="content">
 
-    <form action="#" class="form-add" method="post" th:action="@{/add}">
-        <h2>Add a task</h2>
-        <div class="form-inside" th:object="${task}">
-            <input type="text" th:field="*{title}" name="title" placeholder="title. Do a workout" required>
-            <input type="text" maxlength="70" th:field="*{description}" name="description" placeholder="description. 30 minutes of running outside the city">
-            <button type="submit">Save</button>
-        </div>
-    </form>
-    <footer>
-        Github: szvmczekk
-    </footer>
+        <form action="#" class="form-add" method="post" th:action="@{/add}">
+            <h2>Add a task</h2>
+            <div class="form-inside" th:object="${task}">
+                <input name="title" placeholder="title. Do a workout" required th:field="*{title}" type="text">
+                <input maxlength="70" name="description" placeholder="description. 30 minutes of running outside the city" th:field="*{description}"
+                       type="text">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+
+    </main>
 </div>
 </body>
 </html>

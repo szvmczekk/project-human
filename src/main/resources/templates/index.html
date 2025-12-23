@@ -1,24 +1,11 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <title>Project Human</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
-</head>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
-
-    <nav class="navbar">
-        <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
-        <ul class="nav-links">
-            <li class="nav-item"><a href="#">Help</a></li>
-            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
-            <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" layout:fragment="content">
 
         <section class="cards-action">
             <div class="action-add">
@@ -28,38 +15,28 @@
 
         <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
             <div class="task-card" th:each="task : ${tasks}">
-                <form class="task-form" action="#" method="post" th:action="@{/complete}">
-                    <input hidden value="#" th:value="${task.id}" name="id">
-                    <button class="task-button" type="submit" th:classappend="${task.done ? 'done' : ''}"></button>
+                <form action="#" class="task-form" method="post" th:action="@{/complete}">
+                    <input hidden name="id" th:value="${task.id}" value="#">
+                    <button class="task-button" th:classappend="${task.done ? 'done' : ''}" type="submit"></button>
                 </form>
                 <div class="task-content">
                     <p class="task-title" th:text="${task.title}">Wash dishes</p>
-                    <p class="task-description" th:text="${task.description}">Do a 15 minute session of washing dishes</p>
+                    <p class="task-description" th:text="${task.description}">Do a 15 minute session of washing
+                        dishes</p>
                 </div>
-                <form class="task-delete-form" action="#" method="post" th:action="@{/delete}">
-                    <input hidden value="#" th:value="${task.id}" name="id">
-                    <button class="task-button-delete" type="submit">X</button>
-                </form>
-            </div>
-            <div class="task-card">
-                <form action="#" method="post">
-                    <input hidden value="?" name="taskId">
-                    <button class="task-button done" type="submit"></button>
-                </form>
-                <div class="task-content">
-                    <p class="task-title">Go on a walk</p>
-                    <p class="task-description">Go on a 30 minute walk around the city</p>
+                <div class="task-operation-buttons">
+                    <form action="#" class="task-delete-form" method="post" th:action="@{/edit}">
+                        <input hidden name="id" th:value="${task.id}" value="#">
+                        <button class="task-button-delete" type="submit">X</button>
+                    </form>
+                    <form action="#" class="task-delete-form" method="post" th:action="@{/delete}">
+                        <input hidden name="id" th:value="${task.id}" value="#">
+                        <button class="task-button-delete" type="submit">X</button>
+                    </form>
                 </div>
-                <form class="task-delete-form" action="#" method="post" th:action="@{/delete}">
-                    <input hidden value="#" th:value="${task.id}" name="id">
-                    <button class="task-button-delete" type="submit">X</button>
-                </form>
             </div>
         </div>
     </main>
-    <footer>
-        Github: szvmczekk
-    </footer>
 </div>
 </body>
 </html>
