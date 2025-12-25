@@ -16,7 +16,7 @@
             </div>
         </section>
 
-        <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
+        <div class="task-container" th:if="${not #lists.isEmpty(tasks)}">
             <div class="task-card" th:each="task : ${tasks}">
                 <form action="#" class="task-form" method="post" th:action="@{/complete}">
                     <input hidden name="id" th:value="${task.id}" value="#">

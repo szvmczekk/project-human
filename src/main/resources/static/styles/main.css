@@ -17,6 +17,11 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .container {
     width: 85%;
     margin: 10px auto;
@@ -50,23 +55,18 @@ body {
 }
 
 .nav-item > a {
-    text-decoration: none;
-    color: inherit;
     font-weight: bold;
 }
 
 .navbar > a {
     display: block;
-    text-decoration: none;
     margin-left: 15%;
     align-self: center;
 }
 
-a > .nav-title {
-    align-self: center;
+.nav-title {
     color: var(--grey);
     text-shadow: 0 0 10px rgba(0,0,0, 0.5);
-    text-decoration: none;
 }
 
 .main-content {
@@ -85,7 +85,6 @@ a > .nav-title {
     border: 2px solid var(--dblue);
     border-radius: 7px;
     gap: 20px;
-    align-items: center;
     display: flex;
 }
 
@@ -208,37 +207,24 @@ a > .nav-title {
 }
 
 .form-inside > input {
-    padding: 10px;
-    border: none;
     box-shadow: 0 0 8px 2px rgba(var(--grey-rgb), 1);
-    border-radius: 5px;
     margin-bottom: 15px;
     font-size: 1rem;
 }
 
+.form-inside > input,
 .form-inside > button {
     padding: 10px;
-    font-size: 1.2rem;
-    border-radius: 5px;
     border: none;
+    border-radius: 5px;
+}
+
+.form-inside > button {
+    font-size: 1.2rem;
 }
 
 .form-inside > button:hover {
     color: var(--lblue);
-}
-
-.form-add > a{
-    text-decoration: none;
-    color: inherit;
-    font-size: 0.9rem;
-    display: block;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-.form-add > a > p {
-    display: inline;
-    color: var(--grey);
 }
 
 .not-found {
@@ -254,8 +240,40 @@ a > .nav-title {
     color: red;
 }
 
-footer {
+.home__title{
+    justify-content: center;
+    display: flex;
+    gap: 35px;
+    font-size: 2.5rem;
+}
+
+.home__word {
+    color: var(--white);
+}
+
+.home__word--primary {text-shadow: -1px 0 5px greenyellow;}
+.home__word--secondary {text-shadow: -1px 0 5px hotpink;}
+.home__word--accent {text-shadow: -1px 0 5px orange;}
+
+.home__title--second {
     margin-top: 50px;
+    text-align: center;
+    text-shadow: 0 0 4px rgba(255,255,255, 0.5);
+}
+
+.home__title--second > span {
+    color: var(--dblue);
+    font-size: 1.2rem;
+}
+
+.home__section {
+    margin: 100px 500px;
+    padding: 10%;
+    background-color: var(--dblue);
+    border-radius: 20px;
+}
+
+footer {
     text-align: center;
     border: 2px solid var(--lblue);
     padding: 20px;
@@ -267,6 +285,5 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    align-self: center;
     justify-self: center;
 }

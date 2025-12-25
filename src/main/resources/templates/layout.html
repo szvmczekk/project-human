@@ -15,6 +15,7 @@
   <nav class="navbar">
     <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
     <ul class="nav-links">
+      <li class="nav-item"><a th:href="@{/tasks}">Tasks</a></li>
       <li class="nav-item"><a href="#">Help</a></li>
       <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
       <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>

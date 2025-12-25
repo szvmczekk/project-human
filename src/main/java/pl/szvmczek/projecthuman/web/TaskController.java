@@ -27,15 +27,15 @@ public class TaskController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal UserCredentialsDto user){
+    @GetMapping("/tasks")
+    public String viewTasks(Model model, @AuthenticationPrincipal UserCredentialsDto user){
         if(user == null){
             return "redirect:/login";
         }
-        Long userId = user.getId();
-        List<Task> tasks = taskService.findAllTasksFromUserId(userId);
-        model.addAttribute("tasks",tasks);
-        return "index";
+        List<Task> userTasks = taskService.findAllTasksFromUserId(user.getId());
+        model.addAttribute("tasks",userTasks);
+        return "task-main-page";
+
     }
 
     @GetMapping("/add")
@@ -49,29 +49,29 @@ public class TaskController {
         Optional<User> authUser = userService.findUserByEmail(user.getEmail());
         authUser.ifPresent(task::setUser);
         taskService.saveTask(task);
-        return "redirect:/";
+        return "redirect:/tasks";
     }
 
     @PostMapping("/complete")
     public String completeTask(@RequestParam Long id){
         Optional<Task> task = taskService.findTaskById(id);
         task.ifPresent(t -> taskService.changeStatus(id));
-        return "redirect:/";
+        return "redirect:/tasks";
     }
 
     @PostMapping("/delete")
     public String deleteTask(@RequestParam Long id){
         taskService.deleteTask(id);
-        return "redirect:/";
+        return "redirect:/tasks";
     }
 
     @GetMapping("/edit")
     public String viewEditForm(@RequestParam Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user){
         Optional<Task> task = taskService.findTaskById(id);
         if(task.isEmpty())
-            return "redirect:/";
+            return "redirect:/tasks";
         if(!task.get().getUser().getId().equals(user.getId()))
-            return "redirect:/";
+            return "redirect:/tasks";
         model.addAttribute("task",task.get());
         return "edit-form";
     }
@@ -80,6 +80,6 @@ public class TaskController {
     public String  editTask(@ModelAttribute TaskEditDto task, @AuthenticationPrincipal UserCredentialsDto user){
         System.out.println();
         taskService.updateTask(task,user.getId());
-        return "redirect:/";
+        return "redirect:/tasks";
     }
 }
