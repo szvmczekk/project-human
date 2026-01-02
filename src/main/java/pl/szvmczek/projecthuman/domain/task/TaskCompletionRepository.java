@@ -12,6 +12,6 @@ public interface TaskCompletionRepository extends CrudRepository<TaskCompletion,
     Optional<TaskCompletion> findByTask_IdAndDate(Long taskId, LocalDate date);
     @Modifying
     @Query("DELETE FROM TaskCompletion tc WHERE tc.task.id = :taskId AND tc.date = :date")
-    long deleteByTask_IdAndDate(@Param("taskId") Long taskId,@Param("date") LocalDate date);
+    void deleteByTask_IdAndDate(@Param("taskId") Long taskId,@Param("date") LocalDate date);
     boolean existsByTask_IdAndDate(Long taskId, LocalDate date);
 }

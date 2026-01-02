@@ -4,8 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
+import pl.szvmczek.projecthuman.domain.user.UserRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskCompletionRepository taskCompletionRepository;
+    private final UserRepository userRepository;
 
-    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository) {
+    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.taskCompletionRepository = taskCompletionRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -47,8 +51,12 @@ public class TaskService {
         originalTask.setDescription(dto.getDescription());
     }
 
-    public void saveTask(Task task){
-        taskRepository.save(task);
+    public void saveTask(TaskAddDto task, Long userId){
+        Task taskToSave = TaskDtoMapper.map(task);
+        userRepository.findById(userId).ifPresent(user -> {
+            taskToSave.setUser(user);
+            taskRepository.save(taskToSave);
+        });
     }
 
     public void deleteTask(Long id){
