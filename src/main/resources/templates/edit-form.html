@@ -12,10 +12,8 @@
       <div class="form-inside">
         <input hidden th:field="*{id}" th:value="${task.id}">
         <input name="title" th:placeholder="${task.title}" required th:field="*{title}" type="text">
-        <input maxlength="70" name="description" th:placeholder="${task.getDescription()}" th:field="*{description}"
+        <input maxlength="70" name="description" th:placeholder="${task.description}" th:field="*{description}"
                type="text">
-        <input hidden th:field="*{createdDate}" th:value="${task.createdDate}">
-        <input hidden th:field="*{done}" th:value="${task.done}">
         <button type="submit">Save</button>
       </div>
     </form>

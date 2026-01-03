@@ -3,6 +3,7 @@ package pl.szvmczek.projecthuman.domain.task;
 import jakarta.persistence.*;
 import pl.szvmczek.projecthuman.domain.user.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,24 +17,25 @@ public class Task {
     private User user;
     private String title;
     private String description;
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
     @OneToMany(mappedBy = "task",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TaskCompletion> completions = new HashSet<>();
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.createdDate = LocalDateTime.now();
+        this.createdDate = LocalDate.now();
     }
 
     public Task() {
     }
 
-    public LocalDateTime getCreatedDate() {
+
+    public LocalDate getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 

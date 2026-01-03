@@ -16,7 +16,7 @@ public class CustomSecurityConfig {
     private static final String ADMIN_ROLE = "ADMIN";
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws SecurityException{
         http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/styles/**","/img/**").permitAll()
