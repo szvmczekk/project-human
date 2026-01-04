@@ -21,7 +21,6 @@ public class StreakCalculator {
                 .max(LocalDate::compareTo)
                 .get();
 
-        //check if the last completions is before yesterday, if it is then streak = 0 else it means the streak is active
         if(last.isBefore(today.minusDays(1))) return 0;
 
         LocalDate day = last;

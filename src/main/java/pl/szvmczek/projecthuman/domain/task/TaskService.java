@@ -8,36 +8,25 @@ import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
 import pl.szvmczek.projecthuman.domain.task.utils.StreakCalculator;
-import pl.szvmczek.projecthuman.domain.user.UserRepository;
+import pl.szvmczek.projecthuman.domain.user.User;
+import pl.szvmczek.projecthuman.domain.user.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskCompletionRepository taskCompletionRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository, UserRepository userRepository) {
+    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository, UserService userService) {
         this.taskRepository = taskRepository;
         this.taskCompletionRepository = taskCompletionRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    @Transactional
-    public void changeStatus(Long taskId,Long userId){
-        Task task = getTaskOrThrow(taskId, userId);
-        LocalDate today = LocalDate.now();
-        if(taskCompletionRepository.existsByTask_IdAndDate(taskId,today)) {
-            taskCompletionRepository.deleteByTask_IdAndDate(taskId, today);
-        }else{
-            task.getCompletions().add(new TaskCompletion(task,today));
-        }
-    }
-
-    public List<TaskViewDto> findAllTasksFromUserId(Long userId) {
+    public List<TaskViewDto> getTasksForUser(Long userId) {
         List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
         return tasksByUser.stream()
                 .map(task -> TaskDtoMapper.map(
@@ -48,36 +37,45 @@ public class TaskService {
                 .toList();
     }
 
+    public void saveTask(TaskAddDto taskAddDto, Long userId){
+        Task taskToSave = TaskDtoMapper.map(taskAddDto);
+        User user = userService.findUserById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        taskToSave.setUser(user);
+        taskRepository.save(taskToSave);
+    }
+
     @Transactional
-    public void updateTask(TaskEditDto dto, Long userId){
+    public void changeStatus(Long taskId,Long userId){
+        Task task = getTaskOrThrow(taskId, userId);
+        LocalDate today = LocalDate.now();
+        if(taskCompletionRepository.existsByTask_IdAndDate(task.getId(),today)) {
+            taskCompletionRepository.deleteByTask_IdAndDate(task.getId(), today);
+        }else{
+            task.getCompletions().add(new TaskCompletion(task,today));
+        }
+    }
+
+    public void deleteTask(Long taskId,Long userId){
+        Task task = getTaskOrThrow(taskId, userId);
+        taskRepository.delete(task);
+    }
+
+    public TaskEditDto getTaskForEdit(Long taskId, Long userId){
+        Task task = getTaskOrThrow(taskId, userId);
+        return new TaskEditDto(task.getId(),task.getTitle(),task.getDescription());
+    }
+
+    @Transactional
+    public void updateTaskForUser(TaskEditDto dto, Long userId){
         Task originalTask = taskRepository.findByIdAndUserId(dto.getId(), userId)
-                .orElseThrow(() -> new AccessDeniedException("Task not found or wrong authentication!"));
+                .orElseThrow(() -> new EntityNotFoundException("Task not found or wrong authentication!"));
         originalTask.setTitle(dto.getTitle());
         originalTask.setDescription(dto.getDescription());
     }
 
-    public void saveTask(TaskAddDto task, Long userId){
-        Task taskToSave = TaskDtoMapper.map(task);
-        userRepository.findById(userId).ifPresent(user -> {
-            taskToSave.setUser(user);
-            taskRepository.save(taskToSave);
-        });
-    }
-
-    public void deleteTask(Long id){
-        taskRepository.deleteById(id);
-    }
-
-    public Optional<Task> findTaskById(Long id){
-        return taskRepository.findById(id);
-    }
-
     private Task getTaskOrThrow(Long taskId, Long userId){
-        Task task = taskRepository.findById(taskId)
+        return taskRepository.findByIdAndUserId(taskId,userId)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
-        if(!task.getUser().getId().equals(userId))
-            throw new AccessDeniedException("No permission");
-        return task;
     }
 
 }

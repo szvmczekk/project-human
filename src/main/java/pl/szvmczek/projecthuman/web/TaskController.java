@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.szvmczek.projecthuman.domain.task.Task;
 import pl.szvmczek.projecthuman.domain.task.TaskService;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
@@ -15,7 +14,6 @@ import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class TaskController {
@@ -27,7 +25,7 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String viewTasks(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
-        List<TaskViewDto> userTasks = taskService.findAllTasksFromUserId(user.getId());
+        List<TaskViewDto> userTasks = taskService.getTasksForUser(user.getId());
         model.addAttribute("tasks", userTasks);
         return "task-main-page";
     }
@@ -51,27 +49,21 @@ public class TaskController {
     }
 
     @PostMapping("/delete")
-    public String deleteTask(@RequestParam Long id) {
-        taskService.deleteTask(id);
+    public String deleteTask(@RequestParam Long id, @AuthenticationPrincipal UserCredentialsDto user) {
+        taskService.deleteTask(id,user.getId());
         return "redirect:/tasks";
     }
 
     @GetMapping("/edit")
     public String viewEditForm(@RequestParam Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user) {
-        Optional<Task> taskOptional = taskService.findTaskById(id);
-        if (taskOptional.isEmpty())
-            return "redirect:/tasks";
-        if (!taskOptional.get().getUser().getId().equals(user.getId()))
-            return "redirect:/tasks";
-        Task task = taskOptional.get();
-        TaskEditDto taskEditDto = new TaskEditDto(task.getId(), task.getTitle(), task.getDescription());
-        model.addAttribute("task", taskEditDto);
+        TaskEditDto taskForEdit = taskService.getTaskForEdit(id, user.getId());
+        model.addAttribute("task", taskForEdit);
         return "edit-form";
     }
 
     @PostMapping("/edit")
     public String editTask(@ModelAttribute TaskEditDto task, @AuthenticationPrincipal UserCredentialsDto user) {
-        taskService.updateTask(task, user.getId());
+        taskService.updateTaskForUser(task, user.getId());
         return "redirect:/tasks";
     }
 }
