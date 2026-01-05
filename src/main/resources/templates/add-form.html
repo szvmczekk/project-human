@@ -14,6 +14,9 @@
                 <input name="title" placeholder="title. Do a workout" required th:field="*{title}" type="text">
                 <input maxlength="70" name="description" placeholder="description. 30 minutes of running outside the city" th:field="*{description}"
                        type="text">
+                <select name="categoryId" th:field="*{categoryId}">
+                    <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Workout</option>
+                </select>
                 <button type="submit">Save</button>
             </div>
         </form>

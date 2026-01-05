@@ -14,6 +14,9 @@
         <input name="title" th:placeholder="${task.title}" required th:field="*{title}" type="text">
         <input maxlength="70" name="description" th:placeholder="${task.description}" th:field="*{description}"
                type="text">
+        <select name="categoryId" th:field="*{categoryId}">
+          <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Workout</option>
+        </select>
         <button type="submit">Save</button>
       </div>
     </form>
