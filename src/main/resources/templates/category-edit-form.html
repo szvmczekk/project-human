@@ -8,7 +8,7 @@
   <main class="main-content" layout:fragment="content">
 
     <form class="form-add" method="post" th:action="@{/categories/edit}" th:object="${category}">
-      <h2>Edit</h2>
+      <h2>Edit Category</h2>
       <div class="form-inside">
         <input hidden th:field="*{id}" th:value="${category.id}">
         <input name="title" th:placeholder="${category.name}" required th:field="*{name}" type="text">

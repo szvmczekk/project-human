@@ -88,6 +88,8 @@ body {
 .second-navbar a {
     font-size: 1.1rem;
     padding: 5px;
+    color: var(--grey);
+    text-shadow: 0 0 2px rgba(var(--dblue-rgb), 0.9);
 }
 .second-navbar a:hover {
     font-weight: bold;
@@ -257,8 +259,15 @@ body {
     font-size: 1rem;
 }
 
+.form-inside > select {
+    box-shadow: 0 0 8px 2px rgba(var(--grey-rgb), 1);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
 .form-inside > input,
-.form-inside > button {
+.form-inside > button,
+.form-inside > select {
     padding: 10px;
     border: none;
     border-radius: 5px;

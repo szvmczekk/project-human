@@ -86,5 +86,4 @@ public class TaskService {
         return taskRepository.findByIdAndUserId(taskId,userId)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
     }
-
 }

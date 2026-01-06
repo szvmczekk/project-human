@@ -8,7 +8,7 @@
   <main class="main-content" layout:fragment="content">
 
     <form class="form-add" method="post" th:action="@{/tasks/edit}" th:object="${task}">
-      <h2>Edit</h2>
+      <h2>Edit Task</h2>
       <div class="form-inside">
         <input hidden th:field="*{id}" th:value="${task.id}">
         <input name="title" th:placeholder="${task.title}" required th:field="*{title}" type="text">
