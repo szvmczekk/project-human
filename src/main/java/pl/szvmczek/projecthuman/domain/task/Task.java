@@ -9,17 +9,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedEntityGraph(name = "Task.category", attributeNodes = @NamedAttributeNode("category"))
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private String title;
     private String description;
     private LocalDate createdDate;
-    @OneToMany(mappedBy = "task",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "task",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Set<TaskCompletion> completions = new HashSet<>();
+    private int currentStreak = 0;
+    private LocalDate lastCompletionDate;
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name = "category_id",referencedColumnName = "id",nullable = true)
     private Category category;
@@ -28,6 +31,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.createdDate = LocalDate.now();
+        this.currentStreak = 0;
     }
 
     public Task() {
@@ -88,5 +92,21 @@ public class Task {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getCurrentStreak() {
+        return currentStreak;
+    }
+
+    public void setCurrentStreak(int currentStreak) {
+        this.currentStreak = currentStreak;
+    }
+
+    public LocalDate getLastCompletionDate() {
+        return lastCompletionDate;
+    }
+
+    public void setLastCompletionDate(LocalDate lastCompletionDate) {
+        this.lastCompletionDate = lastCompletionDate;
     }
 }

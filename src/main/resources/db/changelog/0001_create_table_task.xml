@@ -16,6 +16,12 @@
             <column name="title" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(255)"/>
             <column name="created_date" type="date"/>
+            <column name="current_streak" type="BIGINT" defaultValueNumeric="0" defaultOnNull="true">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_completion_date" type="date">
+                <constraints nullable="true"/>
+            </column>
             <column name="category_id" type="BIGINT">
                 <constraints nullable="true"/>
             </column>

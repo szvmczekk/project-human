@@ -8,12 +8,12 @@ import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
-import pl.szvmczek.projecthuman.domain.task.utils.StreakCalculator;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -32,17 +32,15 @@ public class TaskService {
         this.categoryService = categoryService;
     }
 
+    @Transactional(readOnly = true)
     public List<TaskViewDto> getTasksForUser(Long userId) {
         List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
         return tasksByUser.stream()
-                .map(task -> TaskDtoMapper.map(
-                        task,
-                        taskCompletionRepository.existsByTask_IdAndDate(task.getId(), LocalDate.now()),
-                        StreakCalculator.getTaskStreak(task)
-                ))
+                .map(TaskDtoMapper::map)
                 .toList();
     }
 
+    @Transactional
     public void saveTask(TaskAddDto taskAddDto, Long userId){
         Task taskToSave = TaskDtoMapper.map(taskAddDto);
         User user = userService.findUserById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -56,15 +54,35 @@ public class TaskService {
     }
 
     @Transactional
-    public void changeStatus(Long taskId,Long userId){
+    public void changeStatus(Long taskId, Long userId) {
         Task task = getTaskOrThrow(taskId, userId);
         LocalDate today = LocalDate.now();
-        if(taskCompletionRepository.existsByTask_IdAndDate(task.getId(),today)) {
+        boolean doneToday = taskCompletionRepository.existsByTask_IdAndDate(task.getId(), today);
+
+        if (doneToday) {
             taskCompletionRepository.deleteByTask_IdAndDate(task.getId(), today);
-        }else{
-            task.getCompletions().add(new TaskCompletion(task,today));
+            Optional<TaskCompletion> prev =
+                    taskCompletionRepository.findTopByTask_IdAndDateLessThanOrderByDateDesc(task.getId(), today);
+            if (prev.isEmpty()) {
+                task.setLastCompletionDate(null);
+                task.setCurrentStreak(0);
+            } else {
+                LocalDate prevDate = prev.get().getDate();
+                task.setLastCompletionDate(prevDate);
+                task.setCurrentStreak(recalculateStreakEndingAt(task.getId(), prevDate));
+            }
+        } else {
+            taskCompletionRepository.save(new TaskCompletion(task, today));
+            LocalDate last = task.getLastCompletionDate();
+            if (last != null && last.isEqual(today.minusDays(1))) {
+                task.setCurrentStreak(task.getCurrentStreak() + 1);
+            } else {
+                task.setCurrentStreak(1);
+            }
+            task.setLastCompletionDate(today);
         }
     }
+
 
     public void deleteTask(Long taskId,Long userId){
         Task task = getTaskOrThrow(taskId, userId);
@@ -88,4 +106,20 @@ public class TaskService {
         return taskRepository.findByIdAndUserId(taskId,userId)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
     }
+
+    private int recalculateStreakEndingAt(Long taskId, LocalDate endDate) {
+        List<LocalDate> dates = taskCompletionRepository.findDatesUpToDesc(taskId, endDate);
+        if (dates.isEmpty()) return 0;
+
+        int streak = 0;
+        LocalDate expected = endDate;
+
+        for (LocalDate d : dates) {
+            if (!d.equals(expected)) break;
+            streak++;
+            expected = expected.minusDays(1);
+        }
+        return streak;
+    }
+
 }
