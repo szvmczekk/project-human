@@ -12,7 +12,8 @@ public class TaskDtoMapper {
                 task.getTitle(),
                 task.getDescription(),
                 checkIfTaskIsCompleted(task),
-                getTaskStreak(task));
+                getTaskStreak(task),
+                getTaskCategory(task));
     }
 
     static Task map(TaskAddDto taskAddDto){
@@ -30,5 +31,10 @@ public class TaskDtoMapper {
             return 0;
         }
         return task.getCurrentStreak();
+    }
+
+    private static String getTaskCategory(Task task){
+        if(task.getCategory() == null) return "Uncategorized";
+        return task.getCategory().getName();
     }
 }

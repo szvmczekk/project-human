@@ -32,14 +32,6 @@ public class TaskService {
         this.categoryService = categoryService;
     }
 
-    @Transactional(readOnly = true)
-    public List<TaskViewDto> getTasksForUser(Long userId) {
-        List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
-        return tasksByUser.stream()
-                .map(TaskDtoMapper::map)
-                .toList();
-    }
-
     @Transactional
     public void saveTask(TaskAddDto taskAddDto, Long userId){
         Task taskToSave = TaskDtoMapper.map(taskAddDto);
@@ -51,6 +43,28 @@ public class TaskService {
         }
         taskToSave.setUser(user);
         taskRepository.save(taskToSave);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TaskViewDto> getTasksForUser(Long userId) {
+        List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
+        return tasksByUser.stream()
+                .map(TaskDtoMapper::map)
+                .toList();
+    }
+
+    @Transactional
+    public void updateTaskForUser(TaskEditDto dto, Long userId){
+        Task originalTask = getTaskOrThrow(dto.getId(), userId);
+        originalTask.setTitle(dto.getTitle());
+        originalTask.setDescription(dto.getDescription());
+        categoryService.getCategoryByIdAndUserId(dto.getCategoryId(),userId).ifPresent(originalTask::setCategory);
+    }
+
+    @Transactional
+    public void deleteTask(Long taskId,Long userId){
+        Task task = getTaskOrThrow(taskId, userId);
+        taskRepository.delete(task);
     }
 
     @Transactional
@@ -83,23 +97,9 @@ public class TaskService {
         }
     }
 
-
-    public void deleteTask(Long taskId,Long userId){
-        Task task = getTaskOrThrow(taskId, userId);
-        taskRepository.delete(task);
-    }
-
     public TaskEditDto getTaskForEdit(Long taskId, Long userId){
         Task task = getTaskOrThrow(taskId, userId);
         return new TaskEditDto(task.getId(),task.getTitle(),task.getDescription());
-    }
-
-    @Transactional
-    public void updateTaskForUser(TaskEditDto dto, Long userId){
-        Task originalTask = getTaskOrThrow(dto.getId(), userId);
-        originalTask.setTitle(dto.getTitle());
-        originalTask.setDescription(dto.getDescription());
-        categoryService.getCategoryByIdAndUserId(dto.getCategoryId(),userId).ifPresent(originalTask::setCategory);
     }
 
     private Task getTaskOrThrow(Long taskId, Long userId){
