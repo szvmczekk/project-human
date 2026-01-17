@@ -5,23 +5,23 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="0003-1" author="szvmczek">
-        <createTable tableName="task_completion">
+        <createTable tableName="habit_completion">
             <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="date" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="task_id" type="BIGINT">
+            <column name="habit_id" type="BIGINT">
                 <constraints nullable="false"
-                             foreignKeyName="fk_task_completion_task_id"
-                             referencedTableName="task"
+                             foreignKeyName="fk_habit_completion_habit_id"
+                             referencedTableName="habit"
                              referencedColumnNames="id"/>
             </column>
         </createTable>
         <addUniqueConstraint
-                tableName="task_completion"
-                columnNames="task_id, date"
-                constraintName="uk_task_completion_task_date"/>
+                tableName="habit_completion"
+                columnNames="habit_id, date"
+                constraintName="uk_task_completion_habit_date"/>
     </changeSet>
 </databaseChangeLog>

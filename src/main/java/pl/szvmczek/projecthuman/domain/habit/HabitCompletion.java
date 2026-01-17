@@ -1,24 +1,24 @@
-package pl.szvmczek.projecthuman.domain.task;
+package pl.szvmczek.projecthuman.domain.habit;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class TaskCompletion {
+public class HabitCompletion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id",referencedColumnName = "id",nullable = false)
-    private Task task;
+    @JoinColumn(name = "habit_id",referencedColumnName = "id",nullable = false)
+    private Habit habit;
 
-    public TaskCompletion(Task task, LocalDate date) {
+    public HabitCompletion(Habit habit, LocalDate date) {
         this.date = date;
-        this.task = task;
+        this.habit = habit;
     }
 
-    public TaskCompletion() {
+    public HabitCompletion() {
     }
 
     public Long getId() {
@@ -37,11 +37,11 @@ public class TaskCompletion {
         this.date = date;
     }
 
-    public Task getTask() {
-        return task;
+    public Habit getHabit() {
+        return habit;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setHabit(Habit habit) {
+        this.habit = habit;
     }
 }

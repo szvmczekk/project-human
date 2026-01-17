@@ -6,9 +6,9 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
-    <include file="0001_create_table_task.xml" relativeToChangelogFile="true"/>
+    <include file="0001_create_table_habit.xml" relativeToChangelogFile="true"/>
     <include file="0002_create_tables_users_and_role.xml" relativeToChangelogFile="true"/>
-    <include file="0003_create_table_taskcompletion.xml" relativeToChangelogFile="true"/>
+    <include file="0003_create_table_habitcompletion.xml" relativeToChangelogFile="true"/>
     <include file="0004_create_table_category.xml" relativeToChangelogFile="true"/>
     <include file="0005_add_fk_task_category.xml" relativeToChangelogFile="true"/>
     <include file="0006_create_table_habit_drop.xml" relativeToChangelogFile="true"/>

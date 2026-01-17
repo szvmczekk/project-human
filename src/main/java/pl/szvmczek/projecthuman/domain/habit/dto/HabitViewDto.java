@@ -1,6 +1,6 @@
-package pl.szvmczek.projecthuman.domain.task.dto;
+package pl.szvmczek.projecthuman.domain.habit.dto;
 
-public class TaskViewDto {
+public class HabitViewDto {
     private Long id;
     private String title;
     private String category;
@@ -8,7 +8,7 @@ public class TaskViewDto {
     private boolean completed;
     private int streak;
 
-    public TaskViewDto(Long id, String title, String description, boolean completed,int streak,String category) {
+    public HabitViewDto(Long id, String title, String description, boolean completed, int streak, String category) {
         this.id = id;
         this.title = title;
         this.description = description;

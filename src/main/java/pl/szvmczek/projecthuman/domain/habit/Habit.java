@@ -1,4 +1,4 @@
-package pl.szvmczek.projecthuman.domain.task;
+package pl.szvmczek.projecthuman.domain.habit;
 
 import jakarta.persistence.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NamedEntityGraph(name = "Task.category", attributeNodes = @NamedAttributeNode("category"))
-public class Task {
+@NamedEntityGraph(name = "Habit.category", attributeNodes = @NamedAttributeNode("category"))
+public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,22 +19,22 @@ public class Task {
     private String title;
     private String description;
     private LocalDate createdDate;
-    @OneToMany(mappedBy = "task",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
-    private Set<TaskCompletion> completions = new HashSet<>();
+    @OneToMany(mappedBy = "habit",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    private Set<HabitCompletion> completions = new HashSet<>();
     private int currentStreak = 0;
     private LocalDate lastCompletionDate;
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name = "category_id",referencedColumnName = "id",nullable = true)
     private Category category;
 
-    public Task(String title, String description) {
+    public Habit(String title, String description) {
         this.title = title;
         this.description = description;
         this.createdDate = LocalDate.now();
         this.currentStreak = 0;
     }
 
-    public Task() {
+    public Habit() {
     }
 
 
@@ -78,11 +78,11 @@ public class Task {
         this.user = user;
     }
 
-    public Set<TaskCompletion> getCompletions() {
+    public Set<HabitCompletion> getCompletions() {
         return completions;
     }
 
-    public void setCompletions(Set<TaskCompletion> completions) {
+    public void setCompletions(Set<HabitCompletion> completions) {
         this.completions = completions;
     }
 

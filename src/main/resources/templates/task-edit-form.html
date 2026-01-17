@@ -6,11 +6,11 @@
 <body>
 <main class="container" layout:fragment="content">
     <section class="form-page">
-        <form class="form-card" method="post" th:action="@{/tasks/edit}" th:object="${task}">
+        <form class="form-card" method="post" th:action="@{/habits/edit}" th:object="${habit}">
             <h2 class="form-title">Edit Task</h2>
 
             <div class="form-fields">
-                <input hidden th:field="*{id}" th:value="${task.id}">
+                <input hidden th:field="*{id}" th:value="${habit.id}">
 
                 <div class="field">
                     <span class="label">Title</span>

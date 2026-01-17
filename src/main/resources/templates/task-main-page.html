@@ -12,30 +12,30 @@
                 <h1 class="title">Tasks</h1>
                 <p class="subtitle">Make small progress every day. Consistency wins with motivation</p>
             </div>
-            <a class="btn btn--primary" th:href="@{/tasks/add}">+ New Task</a>
+            <a class="btn btn--primary" th:href="@{/habits/add}">+ New Task</a>
         </div>
 
         <section class="grid">
             <article class="card"
-                     th:classappend="${task.completed ? 'card--done' : ''}"
-                     th:each="task : ${tasks}">
+                     th:classappend="${habit.completed ? 'card--done' : ''}"
+                     th:each="habit : ${habits}">
                 <div class="card__top">
                     <div class="card__meta">
-                        <span class="badge" th:text="${task.category}">Health</span>
-                        <span class="badge badge--streak" th:text="|🔥${task.streak}|">🔥 7</span>
+                        <span class="badge" th:text="${habit.category}">Health</span>
+                        <span class="badge badge--streak" th:text="|🔥${habit.streak}|">🔥 7</span>
                     </div>
-                    <form method="post" th:action="@{/tasks/complete}">
-                        <input hidden name="id" th:value="${task.id}">
-                        <button class="check" th:classappend="${task.completed ? 'check--done' : ''}"
+                    <form method="post" th:action="@{/habits/complete}">
+                        <input hidden name="id" th:value="${habit.id}">
+                        <button class="check" th:classappend="${habit.completed ? 'check--done' : ''}"
                                 type="submit"></button>
                     </form>
                 </div>
-                <h3 class="card__title" th:text="${task.title}">Clean my room</h3>
-                <p class="card__desc" th:text="${task.description}">Take out dishes and make bed</p>
+                <h3 class="card__title" th:text="${habit.title}">Clean my room</h3>
+                <p class="card__desc" th:text="${habit.description}">Take out dishes and make bed</p>
 
                 <div class="card__actions">
-                    <a class="link" th:href="@{|/tasks/${task.id}/edit|}">Edit</a>
-                    <a class="link link--danger" th:href="@{|/tasks/${task.id}/delete|}">Delete</a>
+                    <a class="link" th:href="@{|/habits/${habit.id}/edit|}">Edit</a>
+                    <a class="link link--danger" th:href="@{|/habits/${habit.id}/delete|}">Delete</a>
                 </div>
             </article>
         </section>

@@ -1,24 +1,9 @@
-package pl.szvmczek.projecthuman.domain.task.dto;
+package pl.szvmczek.projecthuman.domain.habit.dto;
 
-public class TaskEditDto {
-    private Long id;
+public class HabitAddDto {
     private String title;
     private String description;
     private Long categoryId;
-
-    public TaskEditDto(Long id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

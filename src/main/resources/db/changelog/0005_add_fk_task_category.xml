@@ -5,7 +5,7 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="0005-1" author="szvmczek">
-        <addForeignKeyConstraint baseTableName="task" baseColumnNames="category_id" constraintName="fk_task_category_id"
+        <addForeignKeyConstraint baseTableName="habit" baseColumnNames="category_id" constraintName="fk_habit_category_id"
                                  referencedTableName="category"
                                  referencedColumnNames="id"
                                  onDelete="SET NULL"/>
