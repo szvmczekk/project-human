@@ -1,15 +1,15 @@
 package pl.szvmczek.projecthuman.domain.habitdrop.dto;
 
-public class HabitDropAddDto {
+public class HabitDropCreateDto {
     private String title;
     private String description;
 
-    public HabitDropAddDto(String title, String description) {
+    public HabitDropCreateDto(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    public HabitDropAddDto() {
+    public HabitDropCreateDto() {
     }
 
     public String getTitle() {

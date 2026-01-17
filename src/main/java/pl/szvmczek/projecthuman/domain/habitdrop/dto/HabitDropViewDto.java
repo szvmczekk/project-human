@@ -4,7 +4,7 @@ import pl.szvmczek.projecthuman.domain.habitdrop.HabitDropStatus;
 
 import java.time.LocalDateTime;
 
-public class HabitDropDto {
+public class HabitDropViewDto {
     private Long id;
     private String title;
     private String description;
@@ -12,7 +12,7 @@ public class HabitDropDto {
     private LocalDateTime startDate;
     private int resetCount;
 
-    public HabitDropDto(Long id, String title, String description, HabitDropStatus status, LocalDateTime startDate, int resetCount) {
+    public HabitDropViewDto(Long id, String title, String description, HabitDropStatus status, LocalDateTime startDate, int resetCount) {
         this.id = id;
         this.title = title;
         this.description = description;

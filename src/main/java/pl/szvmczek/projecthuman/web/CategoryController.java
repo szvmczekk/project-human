@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
-import pl.szvmczek.projecthuman.domain.category.dto.CategoryAddDto;
+import pl.szvmczek.projecthuman.domain.category.dto.CategoryCreateDto;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
@@ -32,12 +32,12 @@ public class CategoryController {
 
     @GetMapping("/add")
     public String viewAddForm(Model model) {
-        model.addAttribute("category", new CategoryAddDto());
+        model.addAttribute("category", new CategoryCreateDto());
         return "category-add-form";
     }
 
     @PostMapping("/add")
-    public String addCategory(@ModelAttribute CategoryAddDto dto, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String addCategory(@ModelAttribute CategoryCreateDto dto, @AuthenticationPrincipal UserCredentialsDto user) {
         categoryService.save(dto,user.getId());
         return "redirect:/categories";
     }

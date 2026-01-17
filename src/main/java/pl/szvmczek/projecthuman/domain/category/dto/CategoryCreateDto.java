@@ -1,6 +1,6 @@
 package pl.szvmczek.projecthuman.domain.category.dto;
 
-public class CategoryAddDto {
+public class CategoryCreateDto {
     private String name;
 
     public String getName() {

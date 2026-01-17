@@ -3,7 +3,7 @@ package pl.szvmczek.projecthuman.domain.category;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.szvmczek.projecthuman.domain.category.dto.CategoryAddDto;
+import pl.szvmczek.projecthuman.domain.category.dto.CategoryCreateDto;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
@@ -23,7 +23,7 @@ public class CategoryService {
         this.userService = userService;
     }
 
-    public void save(CategoryAddDto categoryAddDto, Long userId){
+    public void save(CategoryCreateDto categoryAddDto, Long userId){
         User user = userService.findUserById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Category categoryToSave = new Category(categoryAddDto.getName());

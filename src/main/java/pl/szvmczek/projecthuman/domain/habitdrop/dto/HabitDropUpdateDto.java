@@ -1,11 +1,11 @@
 package pl.szvmczek.projecthuman.domain.habitdrop.dto;
 
-public class HabitDropEditDto {
+public class HabitDropUpdateDto {
     private Long id;
     private String title;
     private String description;
 
-    public HabitDropEditDto(Long id, String title, String description) {
+    public HabitDropUpdateDto(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
