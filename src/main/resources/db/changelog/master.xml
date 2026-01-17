@@ -11,7 +11,7 @@
     <include file="0003_create_table_habitcompletion.xml" relativeToChangelogFile="true"/>
     <include file="0004_create_table_category.xml" relativeToChangelogFile="true"/>
     <include file="0005_add_fk_task_category.xml" relativeToChangelogFile="true"/>
-    <include file="0006_create_table_habit_drop.xml" relativeToChangelogFile="true"/>
+    <include file="0006_create_table_bad_habit.xml" relativeToChangelogFile="true"/>
 
     <include file="../testdata/0001_task.sql" relativeToChangelogFile="true" context="dev"/>
     <include file="../testdata/0002_users_and_roles.sql" relativeToChangelogFile="true" context="dev"/>
