@@ -1,18 +1,16 @@
 package pl.szvmczek.projecthuman.domain.habitdrop.dto;
 
-import pl.szvmczek.projecthuman.domain.habitdrop.HabitDropStatus;
-
 import java.time.LocalDateTime;
 
 public class HabitDropViewDto {
     private Long id;
     private String title;
     private String description;
-    private HabitDropStatus status;
+    private boolean status;
     private LocalDateTime startDate;
     private int resetCount;
 
-    public HabitDropViewDto(Long id, String title, String description, HabitDropStatus status, LocalDateTime startDate, int resetCount) {
+    public HabitDropViewDto(Long id, String title, String description, boolean status, LocalDateTime startDate, int resetCount) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -45,11 +43,11 @@ public class HabitDropViewDto {
         this.description = description;
     }
 
-    public HabitDropStatus getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(HabitDropStatus status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

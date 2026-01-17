@@ -19,7 +19,7 @@ public class HabitDropDtoMapper {
                 habitDrop.getId(),
                 habitDrop.getTitle(),
                 habitDrop.getDescription(),
-                habitDrop.isActive() ? HabitDropStatus.ACTIVE : HabitDropStatus.INACTIVE,
+                habitDrop.isActive(),
                 habitDrop.getStartDateTime(),
                 habitDrop.getResetCount());
     }

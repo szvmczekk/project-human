@@ -18,7 +18,7 @@
 
     <section class="grid" th:if="${habits != null and !habits.isEmpty()}">
 
-        <article class="card" th:each="h : ${habits}" th:classappend="${h.status.name() == 'ACTIVE'} ? 'card--done' : ''">
+        <article class="card" th:each="h : ${habits}" th:classappend="${h.status} ? 'card--done' : ''">
 
             <div class="card__top">
                 <div style="min-width:0">
@@ -26,8 +26,8 @@
                     <p class="card__desc" th:text="${h.description}">Description</p>
                 </div>
                 <div class="card__meta">
-                    <span class="badge badge--streak" th:if="${h.status.name() == 'ACTIVE'}">ACTIVE</span>
-                    <span class="badge badge--ghost" th:if="${h.status.name() != 'ACTIVE'}">INACTIVE</span>
+                    <span class="badge badge--streak" th:if="${h.status}">ACTIVE</span>
+                    <span class="badge badge--ghost" th:unless="${h.status}">INACTIVE</span>
                     <span class="badge" th:text="'Resets: ' + ${h.resetCount}">Resets: 0</span>
                 </div>
             </div>
@@ -35,13 +35,13 @@
             <div class="card__actions">
 
                 <form th:action="@{/habit-drops/{id}/start(id=${h.id})}" method="post">
-                    <button class="btn btn--primary" type="submit" th:disabled="${h.status.name() == 'ACTIVE'}">
+                    <button class="btn btn--primary" type="submit" th:disabled="${h.status}">
                         Start
                     </button>
                 </form>
 
                 <form th:action="@{/habit-drops/{id}/reset(id=${h.id})}" method="post">
-                    <button class="btn" type="submit" th:disabled="${h.status.name() != 'ACTIVE'}">
+                    <button class="btn" type="submit" th:disabled="${!h.status}">
                         Reset
                     </button>
                 </form>
