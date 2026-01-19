@@ -14,10 +14,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/habit-drops")
-public class HabitDropController {
+public class BadHabitController {
     private final BadHabitService badHabitService;
 
-    public HabitDropController(BadHabitService badHabitService) {
+    public BadHabitController(BadHabitService badHabitService) {
         this.badHabitService = badHabitService;
     }
 

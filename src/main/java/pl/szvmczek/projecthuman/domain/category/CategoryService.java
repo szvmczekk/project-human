@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryCreateDto;
-import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
+import pl.szvmczek.projecthuman.domain.category.dto.CategoryUpdateDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 
@@ -45,7 +45,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public void updateCategory(CategoryEditDto dto, Long userId){
+    public void updateCategory(CategoryUpdateDto dto, Long userId){
         Category originalCategory = getCategoryOrThrow(dto.getId(),userId);
         originalCategory.setName(dto.getName());
     }

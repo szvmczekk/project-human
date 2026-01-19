@@ -390,6 +390,7 @@ button {
     background: rgba(255,255,255,.10);
 }
 
+/* ===== LINK (A + BUTTON) — FIX NA POST DELETE ===== */
 .link {
     color: var(--muted);
 }
@@ -406,6 +407,30 @@ button {
 .link--danger:hover {
     color: var(--danger);
 }
+
+/* najważniejsze: button udający link */
+button.link{
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    text-align: left;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* focus jak człowiek: */
+a.link:focus-visible,
+button.link:focus-visible{
+    outline: 2px solid rgba(139,92,246,.55);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+/* ===== /FIX ===== */
 
 .check {
     width: 42px;

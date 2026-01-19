@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryCreateDto;
-import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
+import pl.szvmczek.projecthuman.domain.category.dto.CategoryUpdateDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class CategoryController {
     }
 
     @PostMapping("/edit")
-    public String editCategory(@ModelAttribute CategoryEditDto category, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String editCategory(@ModelAttribute CategoryUpdateDto category, @AuthenticationPrincipal UserCredentialsDto user) {
         categoryService.updateCategory(category,user.getId());
         return "redirect:/categories";
     }

@@ -1,10 +1,10 @@
 package pl.szvmczek.projecthuman.domain.category.dto;
 
-public class CategoryEditDto {
+public class CategoryUpdateDto {
     private Long id;
     private String name;
 
-    public CategoryEditDto(Long id, String name) {
+    public CategoryUpdateDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }

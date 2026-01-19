@@ -52,7 +52,7 @@ public class HabitController {
         return "redirect:/habits";
     }
 
-    @GetMapping("/{id}/delete")
+    @PostMapping("/{id}/delete")
     public String deleteHabit(@PathVariable Long id, @AuthenticationPrincipal UserCredentialsDto user) {
         habitService.deleteHabit(id,user.getId());
         return "redirect:/habits";

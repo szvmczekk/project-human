@@ -35,7 +35,9 @@
 
                 <div class="card__actions">
                     <a class="link" th:href="@{|/habits/${habit.id}/edit|}">Edit</a>
-                    <a class="link link--danger" th:href="@{|/habits/${habit.id}/delete|}">Delete</a>
+                    <form method="post" th:action="@{/habits/${habit.id}/delete}">
+                        <button  type="submit" class="link link--danger">Delete</button>
+                    </form>
                 </div>
             </article>
         </section>
