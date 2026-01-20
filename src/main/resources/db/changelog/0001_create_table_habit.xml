@@ -13,8 +13,8 @@
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="title" type="VARCHAR(255)"/>
-            <column name="description" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(50)"/>
+            <column name="description" type="VARCHAR(100)"/>
             <column name="created_date" type="date"/>
             <column name="current_streak" type="BIGINT" defaultValueNumeric="0" defaultOnNull="true">
                 <constraints nullable="true"/>

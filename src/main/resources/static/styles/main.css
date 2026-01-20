@@ -422,6 +422,48 @@ button.link{
     -webkit-appearance: none;
 }
 
+/* Field-level error message */
+.field-error {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+
+    color: rgba(248, 113, 113, .95); /* pasuje do --danger */
+    background: rgba(248, 113, 113, .10);
+    border: 1px solid rgba(248, 113, 113, .25);
+
+    box-shadow: 0 8px 22px rgba(248, 113, 113, .10);
+}
+
+/* Optional: make error message less "blocky" on small screens */
+@media (max-width: 520px) {
+    .field-error {
+        font-size: 0.9rem;
+        padding: 9px 10px;
+    }
+}
+
+/* Highlight invalid fields automatically (Thymeleaf adds .fieldError on inputs/selects with th:field) */
+.input.fieldError,
+.select.fieldError,
+textarea.fieldError {
+    border: 1px solid rgba(248, 113, 113, .55) !important;
+    box-shadow: 0 0 0 4px rgba(248, 113, 113, .12) !important;
+}
+
+/* Optional: focus state stays consistent */
+.input.fieldError:focus,
+.select.fieldError:focus,
+textarea.fieldError:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(248, 113, 113, .18) !important;
+}
+
+
 /* focus jak człowiek: */
 a.link:focus-visible,
 button.link:focus-visible{

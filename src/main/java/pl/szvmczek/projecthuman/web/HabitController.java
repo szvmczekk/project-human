@@ -1,8 +1,10 @@
 package pl.szvmczek.projecthuman.web;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
@@ -41,7 +43,12 @@ public class HabitController {
     }
 
     @PostMapping("/add")
-    public String addHabit(@ModelAttribute HabitCreateDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String addHabit(@ModelAttribute("habit") @Valid HabitCreateDto habit,
+                           BindingResult exceptions,
+                           @AuthenticationPrincipal UserCredentialsDto user) {
+        if (exceptions.hasErrors()) {
+            return "habit-add";
+        }
         habitService.saveHabit(habit, user.getId());
         return "redirect:/habits";
     }

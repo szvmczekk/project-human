@@ -6,25 +6,66 @@
 <body>
 <main class="container" layout:fragment="content">
     <section class="form-page">
-        <form class="form-card" method="post" th:action="@{/habits/add}" th:object="${habit}">
+        <form class="form-card"
+              method="post"
+              th:action="@{/habits/add}"
+              th:object="${habit}">
+
             <h2 class="form-title">Add Task</h2>
+
+            <!-- GLOBAL ERROR (opcjonalnie, ale mega przydatne) -->
+            <div class="form-error" th:if="${#fields.hasErrors('*')}">
+                Please fix the errors below.
+            </div>
 
             <div class="form-fields">
                 <div class="field">
                     <span class="label">Title</span>
-                    <input class="input" required th:field="*{title}" type="text" placeholder="e.g. Do a workout">
+                    <input class="input"
+                           th:field="*{title}"
+                           type="text"
+                           placeholder="e.g. Do a workout">
+
+                    <!-- ERROR: title -->
+                    <div class="field-error"
+                         th:if="${#fields.hasErrors('title')}"
+                         th:errors="*{title}">
+                    </div>
                 </div>
 
                 <div class="field">
                     <span class="label">Description</span>
-                    <input class="input" maxlength="70" th:field="*{description}" type="text" placeholder="e.g. 30 minutes of running">
+                    <input class="input"
+                           maxlength="70"
+                           th:field="*{description}"
+                           type="text"
+                           placeholder="e.g. 30 minutes of running">
+
+                    <!-- ERROR: description -->
+                    <div class="field-error"
+                         th:if="${#fields.hasErrors('description')}"
+                         th:errors="*{description}">
+                    </div>
                 </div>
 
                 <div class="field" th:unless="${#lists.isEmpty(categories)}">
                     <span class="label">Category</span>
                     <select class="select" th:field="*{categoryId}">
-                        <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}">Category</option>
+                        <!-- opcjonalnie placeholder -->
+                        <option value="" disabled selected>Choose category</option>
+
+                        <option th:each="category: ${categories}"
+                                th:text="${category.name}"
+                                th:value="${category.id}">
+                            Category
+                        </option>
                     </select>
+
+                    <!-- ERROR: categoryId -->
+                    <div class="field-error"
+                         th:if="${#fields.hasErrors('categoryId')}"
+                         th:errors="*{categoryId}">
+                    </div>
                 </div>
 
                 <div class="form-actions">

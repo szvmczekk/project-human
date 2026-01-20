@@ -37,6 +37,7 @@ public class HabitService {
         Habit habit = HabitDtoMapper.map(dto);
         User userReference = userService.getReferenceById(userId);
         habit.setUser(userReference);
+        habit.setTitle(habit.getTitle().trim());
         if (dto.getCategoryId() != null) {
             Category category = categoryService.getCategoryByIdAndUserId(dto.getCategoryId(), userId)
                     .orElseThrow(() -> new EntityNotFoundException("Category not found"));
