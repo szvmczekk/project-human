@@ -7,7 +7,7 @@
 <main class="container" layout:fragment="content">
     <section class="form-page">
         <form class="form-card" method="post" th:action="@{/habits/edit}" th:object="${habit}">
-            <h2 class="form-title">Edit Task</h2>
+            <h2 class="form-title">Edit Habit</h2>
 
             <div class="form-fields">
                 <input hidden th:field="*{id}" th:value="${habit.id}">
