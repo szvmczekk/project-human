@@ -1,8 +1,10 @@
 package pl.szvmczek.projecthuman.web;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.badhabit.BadHabitService;
 import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitCreateDto;
@@ -35,7 +37,11 @@ public class BadHabitController {
     }
 
     @PostMapping("/add")
-    public String addHabitDrop(@ModelAttribute BadHabitCreateDto dto, @AuthenticationPrincipal UserCredentialsDto user){
+    public String addHabitDrop(@ModelAttribute("habit") @Valid BadHabitCreateDto dto,
+                               BindingResult exceptions,
+                               @AuthenticationPrincipal UserCredentialsDto user){
+        if(exceptions.hasErrors())
+            return "bad_habit-add";
         badHabitService.create(dto,user.getId());
         return "redirect:/bad-habits";
     }
@@ -48,7 +54,11 @@ public class BadHabitController {
     }
 
     @PostMapping("/edit")
-    public String editHabitDrop(@ModelAttribute BadHabitUpdateDto habit, @AuthenticationPrincipal UserCredentialsDto user){
+    public String editHabitDrop(@ModelAttribute("habit") @Valid BadHabitUpdateDto habit,
+                                BindingResult exceptions,
+                                @AuthenticationPrincipal UserCredentialsDto user){
+        if(exceptions.hasErrors())
+            return "bad_habit-edit";
         badHabitService.update(habit, user.getId());
         return "redirect:/bad-habits";
     }

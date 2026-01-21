@@ -11,19 +11,24 @@
     <h1 class="form-title">New Habit Drop</h1>
     <p class="form-subtitle">Write the exact problem you're struggling with!</p>
 
-    <form th:action="@{/bad-habits/add}" method="post" class="form-fields">
+    <form th:action="@{/bad-habits/add}" method="post" class="form-fields" th:object="${habit}">
+      <div class="form-error" th:if="${#fields.hasErrors('*')}">
+        Please fix the errors below.
+      </div>
       <div class="field">
         <label class="label" for="title">Title</label>
-        <input class="input" id="title" name="title" type="text"
+        <input class="input" id="title" th:field="*{title}" type="text"
                placeholder="np. Sugar, Doomscrolling, Late-night snacks"
-               maxlength="60" required>
+               maxlength="50" required>
+        <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
       </div>
 
       <div class="field">
         <label class="label" for="description">Description</label>
-        <input class="input" id="description" name="description" type="text"
+        <input class="input" id="description" th:field="*{description}" type="text"
                placeholder="Why you want to drop this habit?"
-               maxlength="200">
+               maxlength="100">
+        <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
       </div>
 
       <div class="form-actions">

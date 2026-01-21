@@ -9,24 +9,32 @@
 
   <section class="form-card">
     <h1 class="form-title">Edit Habit Drop</h1>
-    <p class="form-subtitle">Zmieniasz nazwę/opis — historia resetów i startów zostaje.</p>
+    <p class="form-subtitle">Change the title or description, the rest of the data is untouched.</p>
 
-    <form th:action="@{/bad-habits/edit}" method="post" class="form-fields">
+    <form th:action="@{/bad-habits/edit}" method="post" class="form-fields" th:object="${habit}">
+
+      <div class="form-error" th:if="${#fields.hasErrors('*')}">
+        Please fix the errors below.
+      </div>
 
       <input type="hidden" name="id" th:value="${habit.id}"/>
 
       <div class="field">
         <label class="label" for="title">Title</label>
-        <input class="input" id="title" name="title" type="text"
+        <input class="input" id="title" type="text"
+               th:field="*{title}"
                th:value="${habit.title}"
-               maxlength="60" required>
+               maxlength="50" required>
+        <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
       </div>
 
       <div class="field">
         <label class="label" for="description">Description</label>
-        <input class="input" id="description" name="description" type="text"
+        <input class="input" id="description" type="text"
+               th:field="*{description}"
                th:value="${habit.description}"
-               maxlength="200">
+               maxlength="100">
+        <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
       </div>
 
       <div class="form-actions">
