@@ -19,13 +19,13 @@
 
                 <div class="field">
                     <span class="label">Title</span>
-                    <input class="input" required th:field="*{title}" type="text" placeholder="Title">
+                    <input class="input" maxlength="50" required th:field="*{title}" type="text" placeholder="Title">
                     <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
 
                 <div class="field">
                     <span class="label">Description</span>
-                    <input class="input" maxlength="70" th:field="*{description}" type="text" placeholder="Description">
+                    <input class="input" maxlength="100" th:field="*{description}" type="text" placeholder="Description">
                     <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 

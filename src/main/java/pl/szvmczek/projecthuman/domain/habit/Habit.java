@@ -14,10 +14,13 @@ public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private User user;
+    @Column(length = 50)
     private String title;
+    @Column(length = 100)
     private String description;
+    @Column(nullable = false,updatable = false)
     private LocalDate createdDate;
     @OneToMany(mappedBy = "habit",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Set<HabitCompletion> completions = new HashSet<>();
@@ -28,7 +31,7 @@ public class Habit {
     private Category category;
 
     public Habit(String title, String description) {
-        this.title = title;
+        this.title = title.trim();
         this.description = description;
         this.createdDate = LocalDate.now();
         this.currentStreak = 0;

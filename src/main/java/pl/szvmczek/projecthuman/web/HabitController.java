@@ -46,9 +46,8 @@ public class HabitController {
     public String addHabit(@ModelAttribute("habit") @Valid HabitCreateDto habit,
                            BindingResult exceptions,
                            @AuthenticationPrincipal UserCredentialsDto user) {
-        if (exceptions.hasErrors()) {
+        if (exceptions.hasErrors())
             return "habit-add";
-        }
         habitService.saveHabit(habit, user.getId());
         return "redirect:/habits";
     }
@@ -75,7 +74,9 @@ public class HabitController {
     }
 
     @PostMapping("/edit")
-    public String editHabit(@ModelAttribute HabitUpdateDto habit,BindingResult exceptions, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String editHabit(@ModelAttribute("habit") @Valid HabitUpdateDto habit,
+                            BindingResult exceptions,
+                            @AuthenticationPrincipal UserCredentialsDto user) {
         if(exceptions.hasErrors())
             return "habit-edit";
         habitService.updateHabitForUser(habit, user.getId());

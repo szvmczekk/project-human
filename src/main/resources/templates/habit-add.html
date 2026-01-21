@@ -23,7 +23,8 @@
                     <input class="input"
                            th:field="*{title}"
                            type="text"
-                           placeholder="e.g. Do a workout">
+                           placeholder="e.g. Do a workout"
+                           maxlength="50" required>
 
                     <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
@@ -31,7 +32,7 @@
                 <div class="field">
                     <span class="label">Description</span>
                     <input class="input"
-                           maxlength="70"
+                           maxlength="100"
                            th:field="*{description}"
                            type="text"
                            placeholder="e.g. 30 minutes of running">
