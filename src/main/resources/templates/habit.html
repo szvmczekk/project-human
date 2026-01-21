@@ -43,6 +43,16 @@
         </section>
 
     </section>
+
+    <section class="empty" th:if="${habits == null or habits.isEmpty()}">
+        <div class="empty__card">
+            <div class="empty__title">No Habits yet</div>
+            <div class="empty__desc">
+                Add your first Habit, the sooner you start, the sooner you will see results.
+            </div>
+            <a class="btn btn--primary" th:href="@{/bad-habits/add}">Add Habit</a>
+        </div>
+    </section>
 </main>
 </body>
 </html>
